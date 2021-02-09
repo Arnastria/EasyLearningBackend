@@ -10,6 +10,7 @@ from sso.decorators import with_sso_ui
 from sso.utils import get_logout_url
 from django.core import serializers
 from django_auto_prefetching import AutoPrefetchViewSetMixin
+from django.shortcuts import redirect
 
 from django.http.response import HttpResponseRedirect
 # Create your views here.
@@ -37,13 +38,19 @@ def login(request, sso_profile):
     Create a new user & profile if it doesn't exists
     and return token if SSO login suceed.
     """
+    origin = request.GET.get('origin', '')
     if sso_profile is not None:
         token = process_sso_profile(sso_profile)
         username = sso_profile['username']
+        if origin is not None:
+            return redirect('%s/loginSuccess/%s' % ('http://localhost:3000', token))
         return HttpResponseRedirect(
             '/token?token=%s&username=%s' % (token, username))
 
     data = {'message': 'invalid sso'}
+    if origin is not None:
+        return redirect('%s/loginError' % (origin))
+
     return Response(data=data, status=status.HTTP_401_UNAUTHORIZED)
 
 
@@ -77,6 +84,16 @@ def restricted_sample_endpoint(request):
     # It's just quick hacks for temporary output.
     # Should be used Django Rest Serializer instead.
     profile_json = serializers.serialize('json', [profile])
-    return Response({'message': message,
-                     'username': username,
+    return Response({'message': message})
+
+
+@api_view(['GET'])
+def get_profile(request):
+    username = request.user.username
+    if hasattr(request.user, 'profile'):
+        profile = request.user.profile
+    else:
+        profile = None
+    profile_json = serializers.serialize('json', [profile])
+    return Response({'username': username,
                      'profile': profile_json})

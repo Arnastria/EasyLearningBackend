@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('sample/', views.sample_api),
     path('sample-restricted/', views.restricted_sample_endpoint),
+    path('profile/', views.get_profile),
     path('login/', views.login),
     # path('api/', include("main.urls")),
     path('token/', views.token, name='token'),
