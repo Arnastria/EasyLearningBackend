@@ -23,25 +23,34 @@ class Course(models.Model):
     code = models.CharField(max_length=10)
     name = models.CharField(max_length=200)
     aliasName = models.CharField(max_length=64)
+    intro = models.TextField()
+    description = models.TextField()
+    links = models.TextField()
 
 
 class Material(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
+    intro = models.TextField()
+    description = models.TextField()
     pdf = models.TextField()
-    link = models.TextField()
+    pdf_chapter = models.TextField()
+    links = models.TextField()
 
 
 class Post(models.Model):
     material = models.ForeignKey(Material, on_delete=models.CASCADE)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     body = models.TextField()
+    category = models.PositiveSmallIntegerField()
+    date = models.DateField()
 
 
 class Reply(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     body = models.TextField()
+    date = models.DateField()
 
 
 class Test(models.Model):

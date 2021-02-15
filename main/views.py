@@ -11,6 +11,7 @@ from sso.utils import get_logout_url
 from django.core import serializers
 from django_auto_prefetching import AutoPrefetchViewSetMixin
 from django.shortcuts import redirect
+import json
 
 from django.http.response import HttpResponseRedirect
 # Create your views here.
@@ -97,3 +98,13 @@ def get_profile(request):
     profile_json = serializers.serialize('json', [profile])
     return Response({'username': username,
                      'profile': profile_json})
+
+
+@api_view(['POST'])
+def test_post(request):
+    if(request.body != None):
+        json_data = json.loads(request.body)
+        print(json_data)
+    return Response({
+        'body': request.body
+    })

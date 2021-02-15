@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from main import views
+from main import views, api
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,6 +23,32 @@ urlpatterns = [
     path('sample-restricted/', views.restricted_sample_endpoint),
     path('profile/', views.get_profile),
     path('login/', views.login),
+    path('api/post/', api.api_test_post),
+
+    path('api/course/create/', api.create_course),
+    path('api/course/<int:id>/', api.get_course),
+    path('api/course/get/', api.get_all_course),
+
+    path('api/course/<int:id_course>/creatematerial/', api.create_material),
+    path('api/material/<int:id>/', api.get_material),
+    path('api/material/get-by-course/<int:id_course>/',
+         api.get_material_by_course),
+    path('api/material/get/', api.get_all_material),
+
+    path('api/material/<int:id_material>/createpost/', api.create_post),
+    path('api/post/get-by-material/<int:id_material>', api.get_post_by_material),
+    path('api/post/<int:id>/', api.get_post),
+
+    path('api/post/<int:id_post>/createreply/', api.create_reply),
+    path('api/reply/get-by-post/<int:id_post>/', api.get_reply_by_post),
+    path('api/reply/<int:id>/', api.get_reply),
+
+    path('api/test/<int:id_material>/createtest/', api.create_course),
+    path('api/test/get/<int:id>/', api.get_all_course),
+    path('api/test/submit/<int:id>/', api.get_course),
+
+    path('api/testscore/<int:id_test>/', api.create_course),
+
     # path('api/', include("main.urls")),
     path('token/', views.token, name='token'),
     path('logout/', views.logout),
