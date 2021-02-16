@@ -63,3 +63,7 @@ class TestScore(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     test = models.ForeignKey(Test, on_delete=models.CASCADE)
     score = models.PositiveSmallIntegerField()
+
+
+class PDFModel(models.Model):
+    file = models.TextField()

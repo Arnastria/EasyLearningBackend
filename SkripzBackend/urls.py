@@ -38,16 +38,20 @@ urlpatterns = [
     path('api/material/<int:id_material>/createpost/', api.create_post),
     path('api/post/get-by-material/<int:id_material>', api.get_post_by_material),
     path('api/post/<int:id>/', api.get_post),
+    path('api/post/edit/<int:id>/', api.update_post),
 
     path('api/post/<int:id_post>/createreply/', api.create_reply),
     path('api/reply/get-by-post/<int:id_post>/', api.get_reply_by_post),
     path('api/reply/<int:id>/', api.get_reply),
+    path('api/reply/edit/<int:id>/', api.update_reply),
 
     path('api/test/<int:id_material>/createtest/', api.create_course),
     path('api/test/get/<int:id>/', api.get_all_course),
     path('api/test/submit/<int:id>/', api.get_course),
 
     path('api/testscore/<int:id_test>/', api.create_course),
+
+    path('api/pdf/<int:id_pdf>/', api.get_pdf),
 
     # path('api/', include("main.urls")),
     path('token/', views.token, name='token'),
