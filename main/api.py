@@ -183,6 +183,23 @@ def get_post(request, id):
         return HttpResponseServerError("No data found")
 
 
+@api_view(['POST'])
+def update_post(request, id):
+    try:
+        model = Post.objects.get(pk=id)
+        if(request.body != None):
+            json_data = json.loads(request.body)
+            model.body = json_data['body']
+            model.date = datetime.utcnow()
+            model.save()
+            model_json = serializers.serialize('json', [model])
+            return Response({'model': model_json})
+        else:
+            return HttpResponseServerError("No Body Data!")
+    except:
+        return HttpResponseServerError("No data found")
+
+
 @api_view(['GET'])
 def get_post_by_material(request, id_material):
     try:
@@ -236,6 +253,23 @@ def get_reply(request, id):
         return HttpResponseServerError("No data found")
 
 
+@api_view(['POST'])
+def update_reply(request, id):
+    try:
+        model = Reply.objects.get(pk=id)
+        if(request.body != None):
+            json_data = json.loads(request.body)
+            model.body = json_data['body']
+            model.date = datetime.utcnow()
+            model.save()
+            model_json = serializers.serialize('json', [model])
+            return Response({'model': model_json})
+        else:
+            return HttpResponseServerError("No Body Data!")
+    except:
+        return HttpResponseServerError("No data found")
+
+
 @api_view(['GET'])
 def get_reply_by_post(request, id_post):
     try:
@@ -246,3 +280,14 @@ def get_reply_by_post(request, id_post):
             'materials': model_json})
     except:
         return HttpResponseServerError("No data found")
+
+
+@api_view(['GET'])
+def get_pdf(request, id_pdf):
+    try:
+        model = PDFModel.objects.get(pk=id_pdf)
+        model_json = serializers.serialize('json', [model])
+        return Response({
+            'model': model_json})
+    except Exception as e:
+        return HttpResponseServerError(str(e))
