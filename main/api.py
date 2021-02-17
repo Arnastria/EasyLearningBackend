@@ -158,6 +158,7 @@ def create_post(request, id_material):
             model = Post.objects.create(
                 material=material,
                 profile=profile,
+                author_name=profile.name,
                 body=json_data['body'],
                 category=json_data['category'],
                 date=datetime.utcnow()
@@ -207,7 +208,19 @@ def get_post_by_material(request, id_material):
         posts = Post.objects.filter(material=material)
         model_json = serializers.serialize('json', posts)
         return Response({
-            'materials': model_json})
+            'post': model_json})
+    except:
+        return HttpResponseServerError("No data found")
+
+
+@api_view(['GET'])
+def get_latest_post_by_material(request, id_material):
+    try:
+        material = Material.objects.get(pk=id_material)
+        posts = Post.objects.filter(material=material).order_by('-id')[0]
+        model_json = serializers.serialize('json', [posts])
+        return Response({
+            'post': model_json})
     except:
         return HttpResponseServerError("No data found")
 
@@ -229,6 +242,7 @@ def create_reply(request, id_post):
             model = Reply.objects.create(
                 post=post,
                 profile=profile,
+                author_name=profile.name,
                 body=json_data['body'],
                 date=datetime.utcnow()
             )

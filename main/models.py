@@ -41,6 +41,8 @@ class Material(models.Model):
 class Post(models.Model):
     material = models.ForeignKey(Material, on_delete=models.CASCADE)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    author_name = models.CharField(max_length=200)
+    title = models.CharField(max_length=256)
     body = models.TextField()
     category = models.PositiveSmallIntegerField()
     date = models.DateField()
@@ -49,6 +51,7 @@ class Post(models.Model):
 class Reply(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    author_name = models.CharField(max_length=200)
     body = models.TextField()
     date = models.DateField()
 
