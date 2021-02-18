@@ -46,6 +46,7 @@ class Post(models.Model):
     body = models.TextField()
     category = models.PositiveSmallIntegerField()
     date = models.DateField()
+    last_modified = models.DateTimeField(auto_now=True)
 
 
 class Reply(models.Model):
@@ -54,6 +55,7 @@ class Reply(models.Model):
     author_name = models.CharField(max_length=200)
     body = models.TextField()
     date = models.DateField()
+    last_modified = models.DateTimeField(auto_now=True)
 
 
 class Test(models.Model):

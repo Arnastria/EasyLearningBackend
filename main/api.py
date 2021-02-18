@@ -160,6 +160,7 @@ def create_post(request, id_material):
                 profile=profile,
                 author_name=profile.name,
                 body=json_data['body'],
+                title=json_data['title'],
                 category=json_data['category'],
                 date=datetime.utcnow()
             )
@@ -191,7 +192,7 @@ def update_post(request, id):
         if(request.body != None):
             json_data = json.loads(request.body)
             model.body = json_data['body']
-            model.date = datetime.utcnow()
+            model.title = json_data['title']
             model.save()
             model_json = serializers.serialize('json', [model])
             return Response({'model': model_json})
@@ -225,10 +226,21 @@ def get_latest_post_by_material(request, id_material):
         return HttpResponseServerError("No data found")
 
 
+@api_view(['POST'])
+def delete_post_by_id(request, id):
+    try:
+        post = Post.objects.filter(id=id)
+        post.delete()
+        return Response({'message': 'success delete'})
+    except:
+        return HttpResponseServerError("No data found")
+
 # API SET FOR REPLY
 #
 #
 #
+
+
 @api_view(['POST'])
 def create_reply(request, id_post):
     try:
@@ -274,7 +286,6 @@ def update_reply(request, id):
         if(request.body != None):
             json_data = json.loads(request.body)
             model.body = json_data['body']
-            model.date = datetime.utcnow()
             model.save()
             model_json = serializers.serialize('json', [model])
             return Response({'model': model_json})
@@ -291,7 +302,7 @@ def get_reply_by_post(request, id_post):
         replies = Reply.objects.filter(post=post)
         model_json = serializers.serialize('json', replies)
         return Response({
-            'materials': model_json})
+            'replies': model_json})
     except:
         return HttpResponseServerError("No data found")
 

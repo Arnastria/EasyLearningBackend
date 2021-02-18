@@ -36,11 +36,12 @@ urlpatterns = [
     path('api/material/get/', api.get_all_material),
 
     path('api/material/<int:id_material>/createpost/', api.create_post),
-    path('api/get-by-material/<int:id_material>', api.get_post_by_material),
+    path('api/post/get-by-material/<int:id_material>', api.get_post_by_material),
     path('api/get-latest-post-by-material/<int:id_material>',
          api.get_latest_post_by_material),
     path('api/post/<int:id>/', api.get_post),
     path('api/post/edit/<int:id>/', api.update_post),
+    path('api/post/delete/<int:id>/', api.delete_post_by_id),
 
     path('api/post/<int:id_post>/createreply/', api.create_reply),
     path('api/reply/get-by-post/<int:id_post>/', api.get_reply_by_post),
