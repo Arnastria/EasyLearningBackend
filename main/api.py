@@ -307,6 +307,16 @@ def get_reply_by_post(request, id_post):
         return HttpResponseServerError("No data found")
 
 
+@api_view(['POST'])
+def delete_reply_by_id(request, id):
+    try:
+        reply = Reply.objects.filter(id=id)
+        reply.delete()
+        return Response({'message': 'success delete'})
+    except:
+        return HttpResponseServerError("No data found")
+
+
 @api_view(['GET'])
 def get_pdf(request, id_pdf):
     try:

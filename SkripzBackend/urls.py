@@ -47,6 +47,7 @@ urlpatterns = [
     path('api/reply/get-by-post/<int:id_post>/', api.get_reply_by_post),
     path('api/reply/<int:id>/', api.get_reply),
     path('api/reply/edit/<int:id>/', api.update_reply),
+    path('api/reply/delete/<int:id>/', api.delete_reply_by_id),
 
     path('api/test/<int:id_material>/createtest/', api.create_course),
     path('api/test/get/<int:id>/', api.get_all_course),
