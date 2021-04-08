@@ -13,9 +13,11 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 from corsheaders import defaults
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+PRODUCTION = os.environ.get('DATABASE_URL') is not None
 
 
 # Quick-start development settings - unsuitable for production
@@ -102,6 +104,9 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+if PRODUCTION:
+    DATABASES['default'] = dj_database_url.config()
 
 
 # Password validation
