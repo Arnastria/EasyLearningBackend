@@ -27,9 +27,9 @@ PRODUCTION = os.environ.get('DATABASE_URL') is not None
 SECRET_KEY = '3^an3hf7s*bxwqm6)ha0c54+-rp407ekv1maaa#xw(w8ql94d2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['skripz-backend.herokuapp.com', ]
+ALLOWED_HOSTS = ['skripz-backend.herokuapp.com', '*']
 
 
 # Application definition

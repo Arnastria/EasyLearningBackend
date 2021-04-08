@@ -44,7 +44,7 @@ def login(request, sso_profile):
         token = process_sso_profile(sso_profile)
         username = sso_profile['username']
         if origin is not None:
-            return redirect('%s/loginSuccess/%s' % ('https://xenodochial-hugle-cabff9.netlify.app', token))
+            return redirect('%s/loginSuccess/%s' % ('http://www.easy-learning.my.id', token))
         return HttpResponseRedirect(
             '/token?token=%s&username=%s' % (token, username))
 
