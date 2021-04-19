@@ -14,7 +14,7 @@ from django.shortcuts import redirect
 import json
 from .models import *
 
-from django.http.response import HttpResponseRedirect, HttpResponseServerError
+from django.http.response import HttpResponseRedirect, HttpResponseServerError, HttpResponseNotFound
 # Create your views here.
 
 
@@ -64,7 +64,7 @@ def get_all_course(request):
         return Response({
             'model': model_json})
     except:
-        return HttpResponseServerError("No data found")
+        return HttpResponseNotFound("No data found")
 
 
 @api_view(['GET'])
@@ -75,7 +75,7 @@ def get_course(request, id):
         return Response({
             'model': model_json})
     except:
-        return HttpResponseServerError("No data found")
+        return HttpResponseNotFound("No data found")
 
 
 # API SET FOR MATERIAL
@@ -115,7 +115,7 @@ def get_all_material(request):
         return Response({
             'model': model_json})
     except:
-        return HttpResponseServerError("No data found")
+        return HttpResponseNotFound("No data found")
 
 
 @api_view(['GET'])
@@ -126,7 +126,7 @@ def get_material(request, id):
         return Response({
             'model': model_json})
     except:
-        return HttpResponseServerError("No data found")
+        return HttpResponseNotFound("No data found")
 
 
 @api_view(['GET'])
@@ -138,7 +138,7 @@ def get_material_by_course(request, id_course):
         return Response({
             'materials': model_json})
     except:
-        return HttpResponseServerError("No data found")
+        return HttpResponseNotFound("No data found")
 
 
 # API SET FOR POST
@@ -182,7 +182,7 @@ def get_post(request, id):
         return Response({
             'model': model_json})
     except:
-        return HttpResponseServerError("No data found")
+        return HttpResponseNotFound("No data found")
 
 
 @api_view(['POST'])
@@ -197,7 +197,7 @@ def update_post(request, id):
             model_json = serializers.serialize('json', [model])
             return Response({'model': model_json})
         else:
-            return HttpResponseServerError("No Body Data!")
+            return HttpResponseNotFound("No Body Data!")
     except:
         return HttpResponseServerError("No data found")
 
@@ -211,7 +211,7 @@ def get_post_by_material(request, id_material):
         return Response({
             'post': model_json})
     except:
-        return HttpResponseServerError("No data found")
+        return HttpResponseNotFound("No data found")
 
 
 @api_view(['GET'])
@@ -223,7 +223,7 @@ def get_latest_post_by_material(request, id_material):
         return Response({
             'post': model_json})
     except:
-        return HttpResponseServerError("No data found")
+        return HttpResponseNotFound("No data found")
 
 
 @api_view(['POST'])
@@ -276,7 +276,7 @@ def get_reply(request, id):
         return Response({
             'model': model_json})
     except:
-        return HttpResponseServerError("No data found")
+        return HttpResponseNotFound("No data found")
 
 
 @api_view(['POST'])
@@ -304,7 +304,7 @@ def get_reply_by_post(request, id_post):
         return Response({
             'replies': model_json})
     except:
-        return HttpResponseServerError("No data found")
+        return HttpResponseNotFound("No data found")
 
 
 @api_view(['POST'])
