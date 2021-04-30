@@ -206,7 +206,7 @@ def update_post(request, id):
 def get_post_by_material(request, id_material):
     try:
         material = Material.objects.get(pk=id_material)
-        posts = Post.objects.filter(material=material)
+        posts = Post.objects.filter(material=material).order_by('id')
         model_json = serializers.serialize('json', posts)
         return Response({
             'post': model_json})
