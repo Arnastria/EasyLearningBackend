@@ -23,6 +23,7 @@ urlpatterns = [
     path('sample-restricted/', views.restricted_sample_endpoint),
     path('profile/', views.get_profile),
     path('login/', views.login),
+    path('login-backup/', views.login_backup),
     path('api/post/', api.api_test_post),
 
     path('api/course/create/', api.create_course),

@@ -55,6 +55,31 @@ def login(request, sso_profile):
     return Response(data=data, status=status.HTTP_401_UNAUTHORIZED)
 
 
+@api_view(['GET', 'POST'])
+@permission_classes((permissions.AllowAny,))
+@with_sso_ui()
+def login_backup(request, sso_profile):
+    """
+    Handle SSO UI login.
+    Create a new user & profile if it doesn't exists
+    and return token if SSO login suceed.
+    """
+    origin = request.GET.get('origin', '')
+    if sso_profile is not None:
+        token = process_sso_profile(sso_profile)
+        username = sso_profile['username']
+        if origin is not None:
+            return redirect('%s/loginSuccess/%s' % ('https://www.easy-learning-platform.herokuapp.com', token))
+        return HttpResponseRedirect(
+            '/token?token=%s&username=%s' % (token, username))
+
+    data = {'message': 'invalid sso'}
+    if origin is not None:
+        return redirect('%s/loginError' % (origin))
+
+    return Response(data=data, status=status.HTTP_401_UNAUTHORIZED)
+
+
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def token(request):
