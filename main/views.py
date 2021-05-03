@@ -69,7 +69,7 @@ def login_backup(request, sso_profile):
         token = process_sso_profile(sso_profile)
         username = sso_profile['username']
         if origin is not None:
-            return redirect('%s/loginSuccess/%s' % ('https://www.easy-learning-platform.herokuapp.com', token))
+            return redirect('%s/loginSuccess/%s' % ('https://easy-learning-platform.herokuapp.com', token))
         return HttpResponseRedirect(
             '/token?token=%s&username=%s' % (token, username))
 
